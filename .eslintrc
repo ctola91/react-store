@@ -18,7 +18,8 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-one-expression-per-line": "off",
     "react/destructuring-assignment": "off",
-    "implicit-arrow-linebreak": "off"
+    "implicit-arrow-linebreak": "off",
+    "react/forbid-prop-types": [1, ["any"]]
   },
   "parserOptions": {
     "ecmaVersion": 6,

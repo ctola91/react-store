@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import App from './App';
-import Home from './views/Home/Home';
+import Home from './views/Home';
 import About from './views/About/About';
 import Error404 from './views/Error/404';
 import Login from './views/Login/Login';

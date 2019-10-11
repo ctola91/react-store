@@ -1,34 +1,34 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { array, object, func } from 'prop-types';
-import { fetchProducts } from '../../actions/productsActions';
+import { array, func } from 'prop-types';
 import { isFirstRender } from '../../shared/utils/frontend';
 
-const mapStateToProps = ({ products }) => ({ products });
+const ProductsList = ({ products }) => (
+  <ul>
+    {products.map(product => (
+      <li key={product.id}>
+        <span className="left">
+          {product.id} {product.name} {product.quantity}
+        </span>
+        <span className="right">${product.price}</span>
+      </li>
+    ))}
+  </ul>
+);
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      fetchProducts,
-    },
-    dispatch
-  );
-
-// const ProductsList = (products) => (
-//   products.map()
-// )
+ProductsList.propTypes = {
+  products: array,
+};
 
 class Home extends Component {
-  
   componentDidMount() {
     const { fetchProducts } = this.props;
     fetchProducts();
+    // this.props.fetchProducts();
   }
 
   render() {
     const {
-      products: { products },
+      products,
     } = this.props;
     if (isFirstRender(products)) {
       return <div>No products.</div>;
@@ -36,28 +36,14 @@ class Home extends Component {
     return (
       <div>
         <h1>Hello World</h1>
-        {/* <ProductsList products={products} /> */}
-        <ul>
-          {products.map((product) => (
-            <li key={product.id}>
-              <span className="left">
-                {product.id} {product.name} {product.quantity}
-              </span>
-              <span className="right">${product.price}</span>
-            </li>
-          ))}
-        </ul>
+        <ProductsList products={products} />
       </div>
     );
   }
 }
 
 Home.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  products: object,
+  products: array,
   fetchProducts: func,
 };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+export default Home;

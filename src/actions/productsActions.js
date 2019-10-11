@@ -1,33 +1,35 @@
-import axios from 'axios';
-
 import { request, received, error } from '../shared/redux/baseActions';
 import {
   FETCH_PRODUCTS_REQUEST,
   FETCH_PRODUCTS_SUCCESS,
   FETCH_PRODUCTS_ERROR,
+  ADD_PRODUCTS_REQUEST,
+  ADD_PRODUCTS_SUCCESS,
+  ADD_PRODUCTS_ERROR,
 } from './actionTypes';
+import ProductService from '../services/ProductService';
 
-export const fetchProducts = () => dispatch => {
+export const fetchProducts = () => async dispatch => {
   dispatch(request(FETCH_PRODUCTS_REQUEST));
 
-  const axiosData = {
-    method: 'GET',
-    url: 'http://localhost:3001/products',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  };
-
-  axios(axiosData)
-    .then(response => {
-      dispatch(received(FETCH_PRODUCTS_SUCCESS, response.data));
-    })
-    .catch(err => {
-      // eslint-disable-next-line no-console
-      console.log('AXIOS_ERROR:', err.response);
-      dispatch(error(FETCH_PRODUCTS_ERROR));
-    });
+  try {
+    const response = await ProductService.getProducts();
+    dispatch(received(FETCH_PRODUCTS_SUCCESS, response.data));
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log('AXIOS_ERROR:', err.response);
+    dispatch(error(FETCH_PRODUCTS_ERROR));
+  }
 };
 
-export const addProduct = () => {};
+export const addProduct = product => async dispatch => {
+  dispatch(request(ADD_PRODUCTS_REQUEST));
+  try {
+    const response = await ProductService.addProduct(product);
+    dispatch(received(ADD_PRODUCTS_SUCCESS, response.data));
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log('AXIOS_ERROR', err.response);
+    dispatch(error(ADD_PRODUCTS_ERROR));
+  }
+};
