@@ -1,4 +1,7 @@
 export function getNewState(state, newState) {
+  console.log(state);
+  console.log(newState);
+  console.log({...state, ...newState});
   return { ...state, ...newState };
 }
 

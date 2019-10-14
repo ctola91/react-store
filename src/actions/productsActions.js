@@ -45,7 +45,7 @@ export const deleteProduct = id => async dispatch => {
 
   try {
     const response = await ProductService.deleteProduct(id);
-    dispatch(received(DELETE_PRODUCTS_SUCCESS, response.data));
+    dispatch(received(DELETE_PRODUCTS_SUCCESS, id));
   } catch (err) {
     console.log('AXIOS_ERROR', err.response);
     dispatch(error(DELETE_PRODUCTS_ERROR));
@@ -59,6 +59,7 @@ export const updateProduct = product => async dispatch => {
     const response = await ProductService.updateProduct(product);
     dispatch(received(UPDATE_PRODUCTS_SUCCESS, response.data));
   } catch (err) {
+    console.log(err);
     console.log('AXIOS_ERROR', err.response);
     dispatch(error(UPDATE_PRODUCTS_ERROR));
   }
