@@ -3,7 +3,13 @@ import { bindActionCreators } from 'redux';
 
 import Home from './Home';
 
-import { addProduct, fetchProducts, updateProduct, deleteProduct } from '../../actions/productsActions';
+import {
+  addProduct,
+  fetchProducts,
+  updateProduct,
+  deleteProduct,
+  resetProductForm,
+} from '../../actions/productsActions';
 
 const mapStateToProps = ({ products }) => ({ products: products.products });
 
@@ -13,7 +19,8 @@ const mapDispatchToProps = dispatch =>
       addProduct,
       fetchProducts,
       updateProduct,
-      deleteProduct
+      deleteProduct,
+      resetProductForm,
     },
     dispatch
   );

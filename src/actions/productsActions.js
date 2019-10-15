@@ -14,6 +14,7 @@ import {
   UPDATE_PRODUCTS_ERROR,
 } from './actionTypes';
 import ProductService from '../services/ProductService';
+import { actions } from 'react-redux-form';
 
 export const fetchProducts = () => async dispatch => {
   dispatch(request(FETCH_PRODUCTS_REQUEST));
@@ -64,3 +65,7 @@ export const updateProduct = product => async dispatch => {
     dispatch(error(UPDATE_PRODUCTS_ERROR));
   }
 };
+
+export const resetProductForm = () => dispatch => {
+  dispatch(actions.reset('productForm'));
+}
